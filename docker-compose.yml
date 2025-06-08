@@ -8,8 +8,6 @@ services:
     container_name: nutriapp-frontend
     ports:
       - '3000:3000'
-    env_file:
-      - ./frontend/.env.local
     volumes:
       - ./frontend:/app
       - /app/node_modules
