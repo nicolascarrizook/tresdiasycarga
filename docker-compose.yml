@@ -24,9 +24,9 @@ services:
     container_name: nutriapp-backend
     ports:
       - '3001:3001'
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+    # volumes:
+    #   - ./backend:/app
+    #   - /app/node_modules
     depends_on:
       - db
       - redis
