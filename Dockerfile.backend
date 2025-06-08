@@ -1,22 +1,17 @@
 # Multi-stage Dockerfile for Node.js Backend (TypeScript)
-FROM node:18-alpine AS base
-
+FROM node:18-alpine AS deps
 WORKDIR /app
-
-# Install dependencies only when needed
-FROM base AS deps
 COPY backend/package.json backend/package-lock.json* ./
-RUN npm ci --only=production
+RUN npm ci
 
 # Build the source code
-FROM base AS builder
+FROM deps AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY backend/ .
 RUN npm run build
 
 # Production image
-FROM base AS runner
+FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
@@ -24,9 +19,12 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 backend
 
+# Copy only production dependencies
+COPY --from=deps /app/node_modules ./node_modules
+# Copy compiled code
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY backend/.env* ./
+# Copy package.json for possible runtime tools
+COPY backend/package.json ./
 
 USER backend
 EXPOSE 3001
