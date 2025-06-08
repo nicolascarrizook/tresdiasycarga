@@ -1,32 +1,29 @@
-# Multi-stage Dockerfile for Node.js Backend (TypeScript)
+# Etapa 1: dependencias
 FROM node:18-alpine AS deps
 WORKDIR /app
 COPY backend/package.json backend/package-lock.json* ./
 RUN npm ci
 
-# Build the source code
+# Etapa 2: build (como root)
 FROM deps AS builder
 WORKDIR /app
 COPY backend/ .
-RUN mkdir -p /app/dist && chown -R 1001:1001 /app/dist
+RUN chown -R root:root /app
 RUN npm run build
 
-# Production image
+# Etapa 3: producción (usuario seguro)
 FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
-# Create non-root user for security
+# Crea usuario no-root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 backend
 
-# Copy only production dependencies
 COPY --from=deps /app/node_modules ./node_modules
-# Copy compiled code
 COPY --from=builder /app/dist ./dist
-# Copy package.json for possible runtime tools
 COPY backend/package.json ./
 
 USER backend
 EXPOSE 3001
-CMD ["node", "dist/index.js"] 
+CMD ["node", "dist/index.js"]
