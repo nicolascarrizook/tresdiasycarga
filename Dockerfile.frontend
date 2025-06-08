@@ -17,6 +17,7 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY frontend/ .
+RUN mkdir -p /app/.next && chown -R 1001:1001 /app/.next
 
 # Build the application
 RUN npm run build

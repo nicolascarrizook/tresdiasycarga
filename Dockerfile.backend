@@ -8,6 +8,7 @@ RUN npm ci
 FROM deps AS builder
 WORKDIR /app
 COPY backend/ .
+RUN mkdir -p /app/dist && chown -R 1001:1001 /app/dist
 RUN npm run build
 
 # Production image
