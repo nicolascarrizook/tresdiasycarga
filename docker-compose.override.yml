@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  frontend:
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    volumes:
+      - ./frontend:/app
+
+  backend:
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    volumes:
+      - ./backend:/app
+      - /app/node_modules 

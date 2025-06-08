@@ -1,0 +1,78 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: nutriapp-frontend
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - nutriapp-net
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: nutriapp-backend
+    ports:
+      - '3001:3001'
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/nutriapp
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+    networks:
+      - nutriapp-net
+
+  db:
+    image: postgres:15-alpine
+    container_name: nutriapp-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=nutriapp
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - nutriapp-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: nutriapp-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    command: ["redis-server", "--maxmemory 256mb", "--maxmemory-policy volatile-lru"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - nutriapp-net
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  nutriapp-net:
+    driver: bridge 

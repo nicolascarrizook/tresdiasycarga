@@ -1,0 +1,535 @@
+# PRD - Sistema Inteligente de Gestión Nutricional
+**Product Requirements Document v1.0**
+
+---
+
+## 1. RESUMEN EJECUTIVO
+
+### 1.1 Visión del Producto
+Desarrollar un sistema integral de gestión nutricional potenciado por IA que revolucione la práctica profesional de nutricionistas y dietistas, optimizando cada aspecto desde la consulta hasta el seguimiento a largo plazo del paciente.
+
+### 1.2 Objetivos Principales
+- **Eficiencia Operacional**: Automatizar 80% de tareas administrativas
+- **Personalización**: Generar planes nutricionales 100% personalizados
+- **Adherencia**: Aumentar adherencia al tratamiento en 40%
+- **Satisfacción**: Lograr NPS >70 tanto para profesionales como pacientes
+
+### 1.3 Audiencia Objetivo
+- **Primaria**: Nutricionistas, dietistas y equipos de nutrición clínica
+- **Secundaria**: Pacientes de consultorios nutricionales
+- **Terciaria**: Secretarias y personal administrativo de consultorios
+
+---
+
+## 2. ANÁLISIS DE MERCADO Y PROBLEMAS
+
+### 2.1 Problemas Identificados
+1. **Ineficiencia Administrativa**: 60% del tiempo se gasta en tareas manuales
+2. **Planes Genéricos**: Falta de personalización en recomendaciones
+3. **Seguimiento Deficiente**: Pérdida de pacientes por falta de monitoreo
+4. **Gestión de Turnos Manual**: Conflictos, no-shows y mala optimización
+5. **Falta de Datos**: Decisiones basadas en intuición vs. datos
+
+### 2.2 Oportunidad de Mercado
+- Mercado global de software médico: $43.5B (2023)
+- Crecimiento anual: 12.8%
+- Penetración actual en nutrición: <15%
+- Demanda creciente post-pandemia por soluciones digitales de salud
+
+---
+
+## 3. FUNCIONALIDADES CORE
+
+### 3.1 GESTIÓN INTELIGENTE DE TURNOS
+
+#### 3.1.1 Configuración de Profesionales
+**Funcionalidad**: Sistema de configuración de horarios laborales y preferencias profesionales
+
+**Características**:
+- Configuración de días y horarios de trabajo por nutricionista
+- Definición de descansos y pausas personalizables
+- Configuración de tipos de consulta y duración variable
+- Gestión de excepciones (vacaciones, feriados, capacitaciones)
+- Horarios especiales por día de la semana
+
+**Criterios de Aceptación**:
+- ✅ Permitir múltiples horarios por día (mañana/tarde)
+- ✅ Configurar descansos con duración flexible
+- ✅ Establecer duraciones diferentes por tipo de consulta
+- ✅ Importar/exportar configuraciones
+- ✅ Vista previa de agenda antes de aplicar cambios
+
+#### 3.1.2 Registro y Gestión de Pacientes
+**Funcionalidad**: Captura inteligente de preferencias temporales y gestión integral de pacientes
+
+**Características**:
+- Formulario inteligente de registro con validación automática
+- Captura de preferencias temporales detalladas
+- Perfil médico y nutricional completo
+- Historial de citas y tratamientos
+- Integración con sistemas de salud existentes
+
+**Criterios de Aceptación**:
+- ✅ Formulario adaptativo según tipo de paciente
+- ✅ Validación en tiempo real de datos
+- ✅ Captura de preferencias de días y horarios
+- ✅ Restricciones específicas del paciente
+- ✅ Frecuencia de consultas preferida
+
+#### 3.1.3 Motor de Asignación Inteligente
+**Funcionalidad**: Algoritmo de matching entre disponibilidad profesional y preferencias del paciente
+
+**Características**:
+- Algoritmo de optimización multiobjetivo
+- Scoring de compatibilidad en tiempo real
+- Sugerencias alternativas automáticas
+- Priorización por urgencia médica
+- Optimización de agenda para minimizar espacios
+
+**Criterios de Aceptación**:
+- ✅ Tiempo de respuesta <2 segundos
+- ✅ Precisión de matching >95%
+- ✅ Consideración de todos los factores configurados
+- ✅ Sugerencias ordenadas por score de compatibilidad
+- ✅ Alternativas cuando no hay coincidencias exactas
+
+#### 3.1.4 Sistema de Estados de Citas
+**Funcionalidad**: Gestión completa del ciclo de vida de las citas médicas
+
+**Estados Implementados**:
+```
+PROGRAMADA → CONFIRMADA → COMPLETADA
+     ↓           ↓            ↓
+CANCELADA ← REPROGRAMADA → NO_SHOW
+     ↓           ↓
+PENDIENTE_CONFIRMACION → BLOQUEADA
+```
+
+**Criterios de Aceptación**:
+- ✅ Transiciones de estado validadas
+- ✅ Triggers automáticos por tiempo/evento
+- ✅ Auditoría completa de cambios de estado
+- ✅ Notificaciones según estado
+- ✅ Reportes por estado de citas
+
+#### 3.1.5 Programación Automática Recurrente
+**Funcionalidad**: Generación automática de citas de seguimiento futuras
+
+**Características**:
+- Configuración de intervalos por paciente
+- Generación automática de 3-6 meses de citas
+- Respeto a preferencias temporales originales
+- Ajuste automático por feriados y vacaciones
+- Validación de disponibilidad futura
+
+**Criterios de Aceptación**:
+- ✅ Generar citas hasta 6 meses adelante
+- ✅ Mantener preferencias de horario del paciente
+- ✅ Ajustar por excepciones del profesional
+- ✅ Confirmar disponibilidad antes de crear
+- ✅ Permitir modificación manual posterior
+
+#### 3.1.6 Integración Google Calendar
+**Funcionalidad**: Sincronización bidireccional con Google Calendar
+
+**Características**:
+- Creación automática de eventos
+- Sincronización en tiempo real
+- Detección de conflictos automática
+- Invitaciones automáticas a pacientes
+- Gestión de recordatorios
+
+**Criterios de Aceptación**:
+- ✅ Sincronización <30 segundos
+- ✅ Eventos con toda la información necesaria
+- ✅ Detección y resolución de conflictos
+- ✅ Invitaciones automáticas funcionales
+- ✅ Actualización en tiempo real de cambios
+
+### 3.2 SISTEMA DE NOTIFICACIONES Y CONFIRMACIONES
+
+#### 3.2.1 Recordatorios Automáticos con n8n
+**Funcionalidad**: Sistema de recordatorios multicapa con automatización completa
+
+**Workflow Principal**:
+```
+48 horas antes: Recordatorio inicial (WhatsApp/SMS)
+    ↓
+Opciones: Confirmar | Cancelar | Reprogramar | Llamar
+    ↓
+Sin respuesta → 24 horas antes: Segundo recordatorio
+    ↓
+Sin respuesta → Llamada telefónica manual
+```
+
+**Criterios de Aceptación**:
+- ✅ Envío automático exacto a las 48hs
+- ✅ Opciones de respuesta claras y funcionales
+- ✅ Procesamiento automático de respuestas
+- ✅ Escalación por falta de respuesta
+- ✅ Registro completo de interacciones
+
+#### 3.2.2 Gestión de Respuestas Inteligente
+**Funcionalidad**: Procesamiento automático de respuestas de pacientes
+
+**Tipos de Respuesta**:
+- **CONFIRMAR**: Estado → CONFIRMADA, fin del workflow
+- **CANCELAR**: Liberación de horario + notificación a lista de espera
+- **REPROGRAMAR**: Flujo de reprogramación automática
+- **OTROS**: Escalación a agente humano
+
+**Criterios de Aceptación**:
+- ✅ Reconocimiento de texto en español
+- ✅ Procesamiento en tiempo real (<1 minuto)
+- ✅ Actualización automática de estados
+- ✅ Confirmación al paciente de acción tomada
+- ✅ Logging completo para auditoría
+
+#### 3.2.3 Lista de Espera Inteligente
+**Funcionalidad**: Sistema automático de gestión de lista de espera
+
+**Características**:
+- Registro por horario específico o rango
+- Priorización por orden de llegada y urgencia
+- Notificación instantánea de disponibilidad
+- Expiración automática de solicitudes
+- Estadísticas de conversión
+
+**Criterios de Aceptación**:
+- ✅ Notificación <5 minutos tras liberación
+- ✅ Priorización correcta según reglas
+- ✅ Expiración automática a los 7 días
+- ✅ Interface simple para gestión manual
+- ✅ Reportes de efectividad
+
+### 3.3 PLANIFICACIÓN NUTRICIONAL INTELIGENTE
+
+#### 3.3.1 Análisis Integral del Paciente
+**Funcionalidad**: Evaluación completa multidimensional del paciente
+
+**Módulos de Evaluación**:
+- **Antropométrico**: Peso, talla, IMC, composición corporal
+- **Clínico**: Patologías, medicamentos, alergias, intolerancias
+- **Bioquímico**: Laboratorios, vitaminas, minerales
+- **Psicosocial**: Hábitos, preferencias, factores socioeconómicos
+- **Deportivo**: Nivel de actividad, objetivos de rendimiento
+
+**Criterios de Aceptación**:
+- ✅ Formularios adaptativos según perfil
+- ✅ Validación médica de datos ingresados
+- ✅ Cálculos automáticos (TMB, GET, etc.)
+- ✅ Alertas por valores críticos
+- ✅ Integración con dispositivos de medición
+
+#### 3.3.2 Motor de Cálculo Nutricional
+**Funcionalidad**: Cálculos precisos de requerimientos y composición nutricional
+
+**Capacidades de Cálculo**:
+- Tasa metabólica basal (múltiples fórmulas)
+- Gasto energético total personalizado
+- Requerimientos de macro y micronutrientes
+- Distribución de comidas y horarios
+- Intercambios y equivalencias automáticas
+
+**Criterios de Aceptación**:
+- ✅ Precisión >98% en cálculos
+- ✅ Soporte para +10 fórmulas de TMB
+- ✅ Consideración de factores de actividad
+- ✅ Ajustes por patología específica
+- ✅ Validación nutricional automática
+
+#### 3.3.3 Generador de Planes Personalizados
+**Funcionalidad**: Creación automática de planes nutricionales personalizados
+
+**Características**:
+- Planes específicos por patología
+- Consideración de preferencias culturales/religiosas
+- Rotación automática de menús
+- Sustituciones inteligentes
+- Escalado por composición familiar
+
+**Criterios de Aceptación**:
+- ✅ Generación de plan completo <60 segundos
+- ✅ Cumplimiento de requerimientos nutricionales
+- ✅ Variedad en rotación de alimentos
+- ✅ Consideración de restricciones alimentarias
+- ✅ Formato visualmente atractivo
+
+#### 3.3.4 Base de Datos Nutricional Expandida
+**Funcionalidad**: Repositorio completo de alimentos y recetas con análisis nutricional profundo
+
+**Contenido de la Base**:
+- Base USDA integrada con datos locales
+- +50,000 alimentos con códigos de barras
+- Recetas tradicionales y étnicas
+- Suplementos y productos funcionales
+- Análisis de >150 nutrientes por alimento
+
+**Criterios de Aceptación**:
+- ✅ Búsqueda por texto, código de barras, categoría
+- ✅ Datos nutricionales completos y validados
+- ✅ Capacidad de agregar alimentos personalizados
+- ✅ Importación de recetas con análisis automático
+- ✅ Sincronización con bases internacionales
+
+### 3.4 SEGUIMIENTO Y MONITOREO PREDICTIVO
+
+#### 3.4.1 Recolección de Datos Multimodal
+**Funcionalidad**: Captura automática de datos de múltiples fuentes
+
+**Fuentes de Datos**:
+- Registro fotográfico de comidas con IA
+- Integración con wearables y apps fitness
+- Datos de bioimpedancia automáticos
+- Registro manual simplificado
+- Datos de laboratorio digitales
+
+**Criterios de Aceptación**:
+- ✅ Reconocimiento de alimentos >90% precisión
+- ✅ Integración con +20 apps populares
+- ✅ Importación automática de wearables
+- ✅ Interface móvil intuitiva para registro
+- ✅ Validación automática de datos
+
+#### 3.4.2 Análisis Predictivo con ML
+**Funcionalidad**: Modelos de machine learning para predicción y alertas
+
+**Modelos Implementados**:
+- Predicción de adherencia al tratamiento
+- Identificación de riesgo de abandono
+- Predicción de resultados metabólicos
+- Detección de patrones anómalos
+- Optimización de planes según respuesta
+
+**Criterios de Aceptación**:
+- ✅ Precisión de predicciones >85%
+- ✅ Alertas tempranas por riesgo de abandono
+- ✅ Recomendaciones automáticas de ajustes
+- ✅ Explicabilidad de predicciones
+- ✅ Mejora continua con nuevos datos
+
+#### 3.4.3 Dashboard de Monitoreo en Tiempo Real
+**Funcionalidad**: Visualización interactiva del progreso del paciente
+
+**Visualizaciones Incluidas**:
+- Gráficos de evolución de peso y medidas
+- Tendencias de adherencia al plan
+- Análisis de patrones alimentarios
+- Comparativa con objetivos establecidos
+- Alertas visuales por desviaciones
+
+**Criterios de Aceptación**:
+- ✅ Actualización en tiempo real de datos
+- ✅ Gráficos interactivos y exportables
+- ✅ Alertas visuales claras
+- ✅ Capacidad de drill-down en datos
+- ✅ Vista móvil optimizada
+
+### 3.5 IA CONVERSACIONAL Y RAG
+
+#### 3.5.1 Chatbot Especializado en Nutrición
+**Funcionalidad**: Asistente virtual especializado para consultas nutricionales
+
+**Capacidades**:
+- Respuestas a consultas frecuentes
+- Recomendaciones basadas en perfil del paciente
+- Educación nutricional personalizada
+- Escalación automática a profesional
+- Soporte multiidioma (español prioritario)
+
+**Criterios de Aceptación**:
+- ✅ Respuesta <3 segundos
+- ✅ Precisión en respuestas >92%
+- ✅ Comprensión de jerga nutricional
+- ✅ Personalización según historial
+- ✅ Escalación apropiada cuando es necesario
+
+#### 3.5.2 Motor RAG (Retrieval Augmented Generation)
+**Funcionalidad**: Sistema de búsqueda y generación aumentada por recuperación
+
+**Fuentes de Conocimiento**:
+- Literatura científica actualizada
+- Protocolos clínicos internos
+- Historiales de casos similares
+- Guidelines internacionales
+- Base de conocimiento personalizada
+
+**Criterios de Aceptación**:
+- ✅ Búsqueda semántica en <2 segundos
+- ✅ Recuperación de fuentes relevantes >95%
+- ✅ Síntesis coherente de múltiples fuentes
+- ✅ Citas y referencias automáticas
+- ✅ Actualización continua de base de conocimiento
+
+### 3.6 REPORTES Y ANALÍTICAS AVANZADAS
+
+#### 3.6.1 Dashboards Ejecutivos
+**Funcionalidad**: Visualización de métricas clave para toma de decisiones
+
+**Métricas Incluidas**:
+- KPIs de rendimiento de consulta
+- Análisis de patrones poblacionales
+- Efectividad de tratamientos
+- Métricas de satisfacción
+- Análisis financiero básico
+
+**Criterios de Aceptación**:
+- ✅ Actualización diaria automática
+- ✅ Filtros interactivos por período/profesional
+- ✅ Exportación a PDF/Excel
+- ✅ Comparativas históricas
+- ✅ Alertas por métricas críticas
+
+#### 3.6.2 Reportes de Investigación
+**Funcionalidad**: Generación de reportes científicos para investigación
+
+**Tipos de Reportes**:
+- Estudios de efectividad por patología
+- Análisis de adherencia poblacional
+- Correlaciones entre variables
+- Reportes de outcomes clínicos
+- Estudios de cohortes automatizados
+
+**Criterios de Aceptación**:
+- ✅ Formato científico estándar
+- ✅ Anonimización automática de datos
+- ✅ Análisis estadístico automatizado
+- ✅ Gráficos publication-ready
+- ✅ Exportación múltiples formatos
+
+---
+
+## 4. ARQUITECTURA TÉCNICA
+
+### 4.1 Stack Tecnológico Principal
+
+#### 4.1.1 Frontend
+- **Framework**: React 18+ con TypeScript
+- **UI Library**: Tailwind CSS + shadcn/ui
+- **State Management**: Zustand
+- **Móvil**: React Native o PWA
+- **Visualización**: Recharts + D3.js
+
+#### 4.1.2 Backend
+- **Runtime**: Node.js con Express/Fastify
+- **Lenguaje**: TypeScript
+- **Arquitectura**: Microservicios con Docker
+- **API Gateway**: Kong o AWS API Gateway
+- **Message Queue**: Redis + Bull
+
+#### 4.1.3 Base de Datos
+- **Principal**: PostgreSQL 15+
+- **Cache**: Redis
+- **Búsqueda**: Elasticsearch
+- **Vectorial**: Pinecone/Weaviate para embeddings
+- **Time Series**: InfluxDB para métricas
+
+#### 4.1.4 IA/ML Stack
+- **LLM**: GPT-4/Claude 3.5 Sonnet via API
+- **Fine-tuning**: Modelos especializados en nutrición
+- **ML Framework**: Python + scikit-learn + TensorFlow
+- **Vector DB**: Para RAG y búsqueda semántica
+- **Computer Vision**: Para reconocimiento de alimentos
+
+### 4.2 Integraciones Críticas
+
+#### 4.2.1 Automatización (n8n)
+- **Workflows**: Recordatorios, notificaciones, escalaciones
+- **Triggers**: Tiempo, webhooks, cambios de estado
+- **Acciones**: WhatsApp, SMS, Email, actualizaciones DB
+- **Monitoreo**: Logs y alertas de workflows
+
+#### 4.2.2 Comunicación
+- **WhatsApp Business API**: Notificaciones principales
+- **SMS**: Fallback para notificaciones críticas
+- **Email**: Reportes y comunicación formal
+- **Push Notifications**: App móvil
+
+#### 4.2.3 Calendarios
+- **Google Calendar API**: Sincronización bidireccional
+- **Outlook**: Soporte empresarial
+- **CalDAV**: Integración estándar
+- **Webhooks**: Notificaciones de cambios
+
+#### 4.2.4 Salud Digital
+- **FHIR**: Interoperabilidad con sistemas médicos
+- **HL7**: Intercambio de datos clínicos
+- **Apple Health/Google Fit**: Datos de wearables
+- **Laboratorios**: APIs para resultados automáticos
+
+### 4.3 Seguridad y Compliance
+
+#### 4.3.1 Protección de Datos
+- **Encriptación**: AES-256 en reposo, TLS 1.3 en tránsito
+- **Autenticación**: OAuth 2.0 + JWT + MFA
+- **Autorización**: RBAC granular
+- **Audit Logs**: Registro completo de acciones
+- **Backup**: Estrategia 3-2-1 automatizada
+
+#### 4.3.2 Compliance Regulatorio
+- **HIPAA**: Para mercado estadounidense
+- **GDPR**: Para mercado europeo
+- **LGPD**: Para mercado brasileño
+- **Ley 25.326**: Para Argentina
+- **ISO 27001**: Certificación de seguridad
+
+---
+
+## 5. EXPERIENCIA DE USUARIO
+
+### 5.1 Interfaz para Profesionales
+
+#### 5.1.1 Dashboard Principal
+- Vista unificada de agenda del día
+- Alertas y notificaciones prioritarias
+- Métricas clave de la práctica
+- Acceso rápido a funciones principales
+- Panel de pacientes críticos
+
+#### 5.1.2 Gestión de Pacientes
+- Búsqueda inteligente y filtros avanzados
+- Vista 360° del paciente
+- Historial clínico temporal
+- Comunicación integrada
+- Planificación de tratamientos
+
+#### 5.1.3 Herramientas de Consulta
+- Asistente de diagnóstico con IA
+- Calculadoras nutricionales avanzadas
+- Biblioteca de recursos científicos
+- Plantillas personalizables
+- Notas de consulta automáticas
+
+### 5.2 Aplicación para Pacientes
+
+#### 5.2.1 Automonitoreo
+- Registro simplificado de alimentos
+- Tracking de síntomas y bienestar
+- Fotografía de comidas con análisis
+- Recordatorios personalizados
+- Gamificación del progreso
+
+#### 5.2.2 Educación y Motivación
+- Contenido educativo personalizado
+- Videos y recetas interactivas
+- Community features moderadas
+- Challenges nutricionales
+- Sistema de logros y recompensas
+
+### 5.3 Panel Administrativo
+
+#### 5.3.1 Gestión de Turnos
+- Vista de agenda múltiple
+- Gestión de lista de espera
+- Reportes de no-shows
+- Optimización automática de horarios
+- Comunicación masiva con pacientes
+
+#### 5.3.2 Reportes y Analytics
+- Dashboards de performance
+- Análisis de patrones de citas
+- Métricas de satisfacción
+- Reportes financieros básicos
+- Exportación de datos
+
+---

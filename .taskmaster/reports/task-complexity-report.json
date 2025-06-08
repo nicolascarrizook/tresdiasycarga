@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "generatedAt": "2025-06-08T04:40:32.778Z",
+    "tasksAnalyzed": 12,
+    "totalTasks": 12,
+    "analysisCount": 12,
+    "thresholdScore": 5,
+    "projectName": "Taskmaster",
+    "usedResearch": false
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Setup Project Infrastructure and Core Architecture",
+      "complexityScore": 8,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Break down the project infrastructure setup into specific technical implementation tasks, focusing on containerization, development environment configuration, and CI/CD pipeline setup. Each subtask should be independently testable and deployable.",
+      "reasoning": "High complexity due to multiple technology integrations (React, Node.js, PostgreSQL, Redis, Docker) and the foundational nature requiring precise configuration. The 10 detailed steps provided map well to individual subtasks."
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Implement User Authentication and Authorization System",
+      "complexityScore": 9,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Decompose the authentication system into security-focused subtasks covering OAuth implementation, JWT handling, MFA setup, and role-based access control. Prioritize security testing and compliance requirements for each component.",
+      "reasoning": "Very high complexity due to security criticality, multiple authentication methods (OAuth, JWT, MFA), and complex RBAC system. Security implementations require careful attention to detail and extensive testing."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Develop Patient and Professional Management System",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Split the management system into user interface components, data validation layers, search functionality, and GDPR compliance features. Focus on form design, data handling, and user experience optimization.",
+      "reasoning": "Moderate-high complexity involving complex forms, data validation, file handling, and compliance requirements. The medical context adds regulatory complexity but the core functionality is well-defined."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Build Intelligent Appointment Scheduling System",
+      "complexityScore": 9,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Break down the scheduling engine into algorithm development, availability management, conflict resolution, and optimization components. Each subtask should focus on specific algorithmic challenges and performance requirements.",
+      "reasoning": "Very high complexity due to sophisticated matching algorithms, real-time availability calculations, conflict detection, and optimization requirements. The intelligent scoring system requires careful algorithm design and testing."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Integrate Google Calendar and External Calendar Systems",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Organize calendar integration into API setup, bidirectional sync implementation, webhook handling, and conflict resolution. Focus on reliability, error handling, and sync performance optimization.",
+      "reasoning": "Moderate complexity involving external API integrations and sync logic. While technically challenging, the scope is well-defined with established APIs and patterns."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Implement n8n Workflow Automation for Notifications",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Structure workflow automation into n8n deployment, communication channel integrations, workflow design, and monitoring setup. Each subtask should cover specific communication channels and workflow types.",
+      "reasoning": "Moderate-high complexity due to multiple communication channels (WhatsApp, SMS, email), workflow orchestration, and integration requirements. n8n adds a layer of configuration complexity."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Develop Nutritional Database and Calculation Engine",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Divide nutritional system into database setup, calculation engine development, food search implementation, and validation systems. Focus on data accuracy, performance optimization, and algorithm precision.",
+      "reasoning": "High complexity involving large dataset management, complex nutritional calculations, multiple formula implementations, and performance requirements. The scientific accuracy requirement adds validation complexity."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Build AI-Powered Meal Planning and Personalization Engine",
+      "complexityScore": 8,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Structure AI meal planning into LLM integration, personalization algorithms, dietary restriction handling, and feedback systems. Each subtask should focus on specific AI capabilities and personalization features.",
+      "reasoning": "High complexity due to AI integration, personalization algorithms, cultural considerations, and the need for nutritionally accurate AI responses. Requires careful prompt engineering and validation."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Implement Patient Monitoring and Progress Tracking System",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down monitoring system into data collection interfaces, AI-powered food recognition, wearable integrations, and analytics components. Focus on data accuracy, user experience, and predictive capabilities.",
+      "reasoning": "Moderate-high complexity involving multiple data sources, computer vision integration, wearable device APIs, and predictive analytics. The variety of integration points increases implementation complexity."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Develop RAG-Powered AI Assistant and Knowledge Base",
+      "complexityScore": 9,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Decompose RAG system into vector database setup, embedding pipeline, semantic search, LLM integration, and chatbot interface. Each subtask should focus on specific RAG components and accuracy optimization.",
+      "reasoning": "Very high complexity due to advanced AI techniques (RAG, embeddings, semantic search), large knowledge base management, multilingual support, and the need for accurate, cited responses in a medical context."
+    },
+    {
+      "taskId": 11,
+      "taskTitle": "Build Analytics Dashboard and Reporting System",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Structure analytics system into dashboard design, metrics calculation, real-time updates, report generation, and data visualization. Focus on performance optimization and user experience for different stakeholder types.",
+      "reasoning": "Moderate complexity involving data aggregation, visualization, real-time updates, and report generation. While technically involved, the requirements are well-defined and follow established patterns."
+    },
+    {
+      "taskId": 12,
+      "taskTitle": "Implement Security, Compliance, and Production Deployment",
+      "complexityScore": 9,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Break down security and deployment into encryption implementation, compliance controls, monitoring setup, backup systems, and production deployment. Each subtask should address specific security or compliance requirements.",
+      "reasoning": "Very high complexity due to healthcare compliance requirements (HIPAA, GDPR, LGPD), comprehensive security measures, production deployment considerations, and disaster recovery planning. Critical for system success and legal compliance."
+    }
+  ]
+}
